@@ -1,0 +1,71 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Image Moment Service
+  description: Image Moment Service System
+host: 'localhost:3000'
+basePath: /
+tags: 
+- name: User data 
+  description: User Data Management
+schemes: 
+- http
+- https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/users/register:
+    post:
+      tags:
+      - Register User
+      # security:
+      # - UserSecurity: []
+      summary: Register Users
+      description: Register User details
+      parameters: 
+      - name: body
+        in: body
+        description: User Object 
+        required: true
+        schema:
+            $ref: '#/definitions/UserData'
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    x-swagger-router-controller: userRoutes
+definitions:
+  # securityDefinitions:
+  #   UserSecurity:
+  #     type: apiKey
+  #     name: Authorization
+  #     in: header
+  definitions:
+    ErrorResponse:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  UserData:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      city:
+        type: string
