@@ -7,7 +7,7 @@ exports.register = async (req, res, next) => {
     const { username, email, password, city } = req.body;
     const user = await User.findOne({ email });
     if (user) {
-        return res.status(403).json({ error: { message: 'Email already in use!' } });
+        return res.status(403).json({ message: 'Email already in use!' });
         // res.setTimeout(40000, () =>{
         //     return res.status(403).json({ error: { message: 'Email already in use!' } });
         //  });
@@ -30,10 +30,10 @@ exports.login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user)
-        return res.status(403).json({ error: { message: 'invalid email/password' } });
+        return res.status(403).json({ message: 'invalid email/password' });
     const isValid = await user.isPasswordValid(password);
     if (!isValid)
-        return res.status(403).json({ error: { message: 'invalid email/password' } });
+        return res.status(403).json({ message: 'invalid email/password' });
     const token = getSignedToken(user);
     res.status(200).json({ token })
 
